@@ -100,7 +100,7 @@ const DealerSignaturePad = () => {
 
     try {
       const response = await fetch(
-        "https://iuat.acrossassist.com/api/Registration/SubmitDealerSignature",
+        "https://iuat.acrossassist.in/api/Registration/SubmitDealerSignature",
         {
           method: "POST",
           headers: {

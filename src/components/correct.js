@@ -157,7 +157,7 @@ function VehicleForm() {
     };
 
     try {
-      const response = await fetch("https://iuat.acrossassist.com/api/Registration/SubmitVehicleAttributes", {
+      const response = await fetch("https://iuat.acrossassist.in/api/Registration/SubmitVehicleAttributes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -91,7 +91,7 @@ const SignaturePad = () => {
 
     try {
       const response = await fetch(
-        "https://iuat.acrossassist.com/api/Registration/SubmitSignature",
+        "https://iuat.acrossassist.in/api/Registration/SubmitSignature",
         {
           method: "POST",
           headers: {

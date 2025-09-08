@@ -53,7 +53,7 @@ const FeedbackForm = () => {
     };
 
     try {
-      const response = await fetch("https://iuat.acrossassist.com/api/Registration/SubmitCustomerFeedback", {
+      const response = await fetch("https://iuat.acrossassist.in/api/Registration/SubmitCustomerFeedback", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -82,7 +82,7 @@ const locations = useLocation();
 
     try {
       // Make the POST request to the API
-      const response = await fetch('https://iuat.acrossassist.com/api/Registration/SubmitVehicleConditionReport', {
+      const response = await fetch('https://iuat.acrossassist.in/api/Registration/SubmitVehicleConditionReport', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -120,6 +120,56 @@ const locations = useLocation();
 
 //  API- GetSRNData
 //--------------------------tarun API------------
+  const handleFetchData = async () => {
+    if (!srnNo.trim()) {
+      alert("Please enter an SRN number");
+      return;
+    }
+  
+    try {
+      const response = await fetch("https://autouatapi.acrossassist.in/api/Auto/GetSRNData", {
+        method: "POST", // Change to POST
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ srN_No:srnNo }),
+      });
+  
+      const result = await response.json();
+  
+      if (result.status && result.dataItem) {
+        const data = result.dataItem[0];
+        console.log(data,'ddddd')
+        const now = new Date();
+        setDate(now.toISOString().split("T")[0]); // yyyy-mm-dd
+        setTime(now.toTimeString().split(" ")[0].slice(0, 5));
+        setTechnicianName(data.technicianName || "");
+        setagencyName(data.vendorName || "")
+        // setTime(data.time || "");
+        // setDate(data.date ? data.date.split("T")[0] : "");
+        setRegNo(data.vehicleNo || "");
+        setJobNo(data.jobNo || "");
+        setKmTravelledByAssistanceVehicle(data.totalKilometers || "")
+        setOdometerReading(data.odometerReading || "");
+        setReportedFault(data.reportedFault || "");
+        setCustomerName(data.customerFirstName || "");
+        setCustomerTelephone(data.customerMobileNo || "");
+        setBrandModel(data.model_Variant || "");
+        setLocation(data.incident_Location || "");
+        setReachingTime(data.reachingTime ? data.reachingTime.split("T")[0] : "");
+        setagencyNo(data.agencyNo || ""); 
+        setvehicleNo(data.vehicleNo || "");
+        setDeliveryToDealershipDateTime(data.deliveryToDealershipDateTime ? data.deliveryToDealershipDateTime.split("T")[0] : "");
+      } else {
+        alert("No data found for this SRN number.");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      alert("Failed to fetch data. Please try again.");
+    }
+  };
+  
+  //-----------saurabh API----------------------------
   // const handleFetchData = async () => {
   //   if (!srnNo.trim()) {
   //     alert("Please enter an SRN number");
@@ -127,33 +177,34 @@ const locations = useLocation();
   //   }
   
   //   try {
-  //     const response = await fetch("https://mintflix.live:8086/api/Auto/GetSRNData", {
+  //     const response = await fetch("https://iuat.acrossassist.in/api/Registration/GetVehicleConditionBySRN", {
   //       method: "POST", // Change to POST
   //       headers: {
   //         "Content-Type": "application/json",
   //       },
-  //       body: JSON.stringify({ srN_No:srnNo }),
+  //       body: JSON.stringify({ srnNo:srnNo }),
   //     });
   
   //     const result = await response.json();
   
-  //     if (result.status && result.dataItem) {
-  //       const data = result.dataItem[0];
+  //     if (result.status && result.data) {
+  //       const data = result.data;
   //       console.log(data,'ddddd')
   //       const now = new Date();
-  //       setDate(now.toISOString().split("T")[0]); // yyyy-mm-dd
-  //       setTime(now.toTimeString().split(" ")[0].slice(0, 5));
+  //       // setDate(now.toISOString().split("T")[0]); // yyyy-mm-dd
+  //       // setTime(now.toTimeString().split(" ")[0].slice(0, 5));
+  //       setKmTravelledByAssistanceVehicle(data.kmTravelledByAssistanceVehicle || "")
   //       setTechnicianName(data.technicianName || "");
-  //       // setTime(data.time || "");
-  //       // setDate(data.date ? data.date.split("T")[0] : "");
+  //       setTime(data.time || "");
+  //       setDate(data.date ? data.date.split("T")[0] : "");
   //       setRegNo(data.vehicleNo || "");
   //       setJobNo(data.jobNo || "");
   //       setOdometerReading(data.odometerReading || "");
   //       setReportedFault(data.reportedFault || "");
-  //       setCustomerName(data.customerFirstName || "");
-  //       setCustomerTelephone(data.customerMobileNo || "");
-  //       setBrandModel(data.model_Variant || "");
-  //       setLocation(data.incident_Location || "");
+  //       setCustomerName(data.customerName || "");
+  //       setCustomerTelephone(data.customerTelephone || "");
+  //       setBrandModel(data.brandModel || "");
+  //       setLocation(data.location || "");
   //       setReachingTime(data.reachingTime ? data.reachingTime.split("T")[0] : "");
   //       setagencyName(data.agencyName || ""); 
   //       setagencyNo(data.agencyNo || ""); 
@@ -167,56 +218,6 @@ const locations = useLocation();
   //     alert("Failed to fetch data. Please try again.");
   //   }
   // };
-  
-  //-----------saurabh API----------------------------
-  const handleFetchData = async () => {
-    if (!srnNo.trim()) {
-      alert("Please enter an SRN number");
-      return;
-    }
-  
-    try {
-      const response = await fetch("https://iuat.acrossassist.com/api/Registration/GetVehicleConditionBySRN", {
-        method: "POST", // Change to POST
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ srnNo:srnNo }),
-      });
-  
-      const result = await response.json();
-  
-      if (result.status && result.data) {
-        const data = result.data;
-        console.log(data,'ddddd')
-        const now = new Date();
-        // setDate(now.toISOString().split("T")[0]); // yyyy-mm-dd
-        // setTime(now.toTimeString().split(" ")[0].slice(0, 5));
-        setKmTravelledByAssistanceVehicle(data.kmTravelledByAssistanceVehicle || "")
-        setTechnicianName(data.technicianName || "");
-        setTime(data.time || "");
-        setDate(data.date ? data.date.split("T")[0] : "");
-        setRegNo(data.vehicleNo || "");
-        setJobNo(data.jobNo || "");
-        setOdometerReading(data.odometerReading || "");
-        setReportedFault(data.reportedFault || "");
-        setCustomerName(data.customerName || "");
-        setCustomerTelephone(data.customerTelephone || "");
-        setBrandModel(data.brandModel || "");
-        setLocation(data.location || "");
-        setReachingTime(data.reachingTime ? data.reachingTime.split("T")[0] : "");
-        setagencyName(data.agencyName || ""); 
-        setagencyNo(data.agencyNo || ""); 
-        setvehicleNo(data.vehicleNo || "");
-        setDeliveryToDealershipDateTime(data.deliveryToDealershipDateTime ? data.deliveryToDealershipDateTime.split("T")[0] : "");
-      } else {
-        alert("No data found for this SRN number.");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      alert("Failed to fetch data. Please try again.");
-    }
-  };
   
 
   return (

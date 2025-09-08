@@ -186,7 +186,7 @@ function VehicleDropForm() {
     };
 
     try {
-      const response = await fetch("https://iuat.acrossassist.com/api/Registration/SubmitVehicleAttributesDrop", {
+      const response = await fetch("https://iuat.acrossassist.in/api/Registration/SubmitVehicleAttributesDrop", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -254,7 +254,7 @@ function VehicleDropForm() {
               vehicleIndex={selectedVehicle}
             />
 
-            {capturedImages[vehicleType].length > 3 && (
+            {/* {capturedImages[vehicleType].length > 3 && (
               <div className="flex flex-wrap justify-start mt-4 gap-4">
                 {capturedImages[vehicleType].slice(3).map((image, index) => (
                   <img
@@ -265,7 +265,7 @@ function VehicleDropForm() {
                   />
                 ))}
               </div>
-            )}
+            )} */}
 
             {/* {capturedImages[vehicleType].length >= 3 && (
               <button onClick={handleMoreCapture} className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4">
